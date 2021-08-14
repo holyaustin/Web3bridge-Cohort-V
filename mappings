@@ -1,0 +1,33 @@
+//SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.4;
+
+contract Mappings {
+
+    uint count;
+
+    mapping(address => uint256) public functionCalled;
+    mapping(address => bytes32) public functionHash;
+    
+    constructor() {
+        count=0;
+    }
+    
+    function addFunction(address id, uint256 _x) public {
+        functionCalled[id][_x];
+        count++;
+    }
+
+    function getFunctionCount(address id, uint index) public view returns(uint){
+        return functionCalled[id][index].x;
+    }
+ 
+    function getAddressHash( address _var, bytes memory _hash) public view returns (bytes32){
+        _var = msg.sender;
+        _hash = keccak256(abi.encodePacked(functionHash[_var]));
+        return _hash;
+    }
+    
+
+
+}
